@@ -1,0 +1,307 @@
+/* =========================================================
+   popup.css — AutoFill Extension Popup Styles
+   ========================================================= */
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 380px;
+  font-family: "Segoe UI", "Inter", Roboto, Arial, sans-serif;
+  font-size: 13px;
+  color: #202124;
+  background: #ffffff;
+  padding: 16px;
+  overflow-y: auto;
+  max-height: 580px;
+}
+
+/* --- Utility --- */
+.hidden {
+  display: none !important;
+}
+
+/* --- Header --- */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e8eaed;
+}
+
+.header-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+}
+
+.header h1 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a73e8;
+  letter-spacing: -0.2px;
+}
+
+/* --- Section hint --- */
+.section-hint {
+  font-size: 12px;
+  color: #5f6368;
+  margin-bottom: 12px;
+}
+
+/* --- Buttons (shared) --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Primary (blue) */
+.btn-primary {
+  background: #1a73e8;
+  color: #ffffff;
+  font-size: 13px;
+  padding: 10px 16px;
+}
+
+.btn-primary:hover {
+  background: #1667d1;
+}
+
+.btn-full {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* Small action buttons */
+.btn-sm {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.btn-copy {
+  background: #e8f0fe;
+  color: #1a73e8;
+}
+.btn-copy:hover {
+  background: #d2e3fc;
+}
+
+.btn-edit {
+  background: #fef7e0;
+  color: #e37400;
+}
+.btn-edit:hover {
+  background: #feefc3;
+}
+
+.btn-delete {
+  background: #fce8e6;
+  color: #d93025;
+}
+.btn-delete:hover {
+  background: #f9d2cf;
+}
+
+.btn-save-edit {
+  background: #e6f4ea;
+  color: #1e8e3e;
+}
+.btn-save-edit:hover {
+  background: #ceead6;
+}
+
+.btn-cancel {
+  background: #f1f3f4;
+  color: #5f6368;
+}
+.btn-cancel:hover {
+  background: #e8eaed;
+}
+
+/* --- Feedback bar --- */
+.feedback {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+.feedback.success {
+  background: #e6f4ea;
+  color: #1e8e3e;
+}
+
+.feedback.warning {
+  background: #fef7e0;
+  color: #e37400;
+}
+
+.feedback.error {
+  background: #fce8e6;
+  color: #d93025;
+}
+
+/* --- Form (empty state) --- */
+#data-form label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #5f6368;
+  margin-bottom: 3px;
+  margin-top: 10px;
+}
+
+#data-form label:first-child {
+  margin-top: 0;
+}
+
+#data-form input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1.5px solid #dadce0;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #202124;
+  background: #f8f9fa;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+#data-form input:focus {
+  outline: none;
+  border-color: #1a73e8;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.12);
+}
+
+#data-form button[type="submit"] {
+  margin-top: 16px;
+}
+
+/* --- Field rows (filled state) --- */
+.field-row {
+  background: #f8f9fa;
+  border: 1px solid #e8eaed;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.field-row:hover {
+  background: #f1f3f4;
+}
+
+.field-row.active-edit {
+  background: #e8f0fe;
+  border-color: #a8c7fa;
+}
+
+.field-display {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #5f6368;
+  min-width: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.field-value {
+  flex: 1;
+  font-size: 13px;
+  color: #202124;
+  word-break: break-word;
+}
+
+.field-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+/* --- Inline edit --- */
+.field-edit {
+  margin-top: 8px;
+}
+
+.field-edit label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #5f6368;
+  margin-bottom: 4px;
+}
+
+.field-edit input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1.5px solid #a8c7fa;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  color: #202124;
+  background: #ffffff;
+  margin-bottom: 6px;
+}
+
+.field-edit input:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.12);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* --- Scrollbar polish --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #dadce0;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #bdc1c6;
+}

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoFill Extension</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <img src="icons/icon48.png" alt="AutoFill" class="header-icon" />
+    <h1>AutoFill Extension</h1>
+  </header>
+
+  <!-- Auto-fill trigger -->
+  <button id="autofill-btn" class="btn btn-primary btn-full">⚡ Auto-fill This Page</button>
+
+  <!-- Feedback bar -->
+  <div id="feedback-bar" class="feedback hidden"></div>
+
+  <!-- Empty state: data-entry form -->
+  <div id="empty-state">
+    <p class="section-hint">Enter your details to get started.</p>
+    <form id="data-form" autocomplete="off">
+      <label for="input-firstName">First Name</label>
+      <input type="text" id="input-firstName" placeholder="First Name" />
+
+      <label for="input-lastName">Last Name</label>
+      <input type="text" id="input-lastName" placeholder="Last Name" />
+
+      <label for="input-fullName">Full Name</label>
+      <input type="text" id="input-fullName" placeholder="Full Name" />
+
+      <label for="input-email">Email</label>
+      <input type="email" id="input-email" placeholder="Email" />
+
+      <label for="input-phone">Phone</label>
+      <input type="tel" id="input-phone" placeholder="Phone" />
+
+      <label for="input-addressLine1">Address Line 1</label>
+      <input type="text" id="input-addressLine1" placeholder="Address Line 1" />
+
+      <label for="input-addressLine2">Address Line 2</label>
+      <input type="text" id="input-addressLine2" placeholder="Address Line 2" />
+
+      <label for="input-city">City</label>
+      <input type="text" id="input-city" placeholder="City" />
+
+      <label for="input-state">State</label>
+      <input type="text" id="input-state" placeholder="State" />
+
+      <label for="input-zipCode">Zip/Postal Code</label>
+      <input type="text" id="input-zipCode" placeholder="Zip/Postal Code" />
+
+      <label for="input-country">Country</label>
+      <input type="text" id="input-country" placeholder="Country" />
+
+      <label for="input-linkedIn">LinkedIn URL</label>
+      <input type="url" id="input-linkedIn" placeholder="LinkedIn URL" />
+
+      <label for="input-gitHub">GitHub URL</label>
+      <input type="url" id="input-gitHub" placeholder="GitHub URL" />
+
+      <label for="input-gender">Gender</label>
+      <input type="text" id="input-gender" placeholder="Gender" />
+
+      <label for="input-dateOfBirth">Date of Birth</label>
+      <input type="date" id="input-dateOfBirth" placeholder="Date of Birth" />
+
+      <button type="submit" class="btn btn-primary btn-full">💾 Save</button>
+    </form>
+  </div>
+
+  <!-- Filled state: display saved data -->
+  <div id="filled-state" class="hidden">
+    <p class="section-hint">Your saved details:</p>
+
+    <!-- First Name -->
+    <div class="field-row" id="field-firstName">
+      <div class="field-display">
+        <span class="field-label">First Name</span>
+        <span class="field-value" id="value-firstName"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="firstName">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="firstName">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="firstName">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>First Name</label>
+        <input type="text" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="firstName">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="firstName">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Last Name -->
+    <div class="field-row" id="field-lastName">
+      <div class="field-display">
+        <span class="field-label">Last Name</span>
+        <span class="field-value" id="value-lastName"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="lastName">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="lastName">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="lastName">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>Last Name</label>
+        <input type="text" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="lastName">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="lastName">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full Name -->
+    <div class="field-row" id="field-fullName">
+      <div class="field-display">
+        <span class="field-label">Full Name</span>
+        <span class="field-value" id="value-fullName"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="fullName">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="fullName">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="fullName">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>Full Name</label>
+        <input type="text" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="fullName">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="fullName">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="field-row" id="field-email">
+      <div class="field-display">
+        <span class="field-label">Email</span>
+        <span class="field-value" id="value-email"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="email">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="email">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="email">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>Email</label>
+        <input type="email" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="email">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="email">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div class="field-row" id="field-phone">
+      <div class="field-display">
+        <span class="field-label">Phone</span>
+        <span class="field-value" id="value-phone"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="phone">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="phone">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="phone">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>Phone</label>
+        <input type="tel" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="phone">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="phone">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Address Line 1 -->
+    <div class="field-row" id="field-addressLine1">
+      <div class="field-display">
+        <span class="field-label">Address Line 1</span>
+        <span class="field-value" id="value-addressLine1"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="addressLine1">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="addressLine1">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="addressLine1">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>Address Line 1</label>
+        <input type="text" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="addressLine1">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="addressLine1">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Address Line 2 -->
+    <div class="field-row" id="field-addressLine2">
+      <div class="field-display">
+        <span class="field-label">Address Line 2</span>
+        <span class="field-value" id="value-addressLine2"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="addressLine2">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="addressLine2">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="addressLine2">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>Address Line 2</label>
+        <input type="text" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="addressLine2">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="addressLine2">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- City -->
+    <div class="field-row" id="field-city">
+      <div class="field-display">
+        <span class="field-label">City</span>
+        <span class="field-value" id="value-city"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="city">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="city">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="city">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>City</label>
+        <input type="text" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="city">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="city">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- State -->
+    <div class="field-row" id="field-state">
+      <div class="field-display">
+        <span class="field-label">State</span>
+        <span class="field-value" id="value-state"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="state">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="state">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="state">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>State</label>
+        <input type="text" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="state">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="state">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zip/Postal Code -->
+    <div class="field-row" id="field-zipCode">
+      <div class="field-display">
+        <span class="field-label">Zip/Postal Code</span>
+        <span class="field-value" id="value-zipCode"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="zipCode">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="zipCode">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="zipCode">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>Zip/Postal Code</label>
+        <input type="text" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="zipCode">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="zipCode">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Country -->
+    <div class="field-row" id="field-country">
+      <div class="field-display">
+        <span class="field-label">Country</span>
+        <span class="field-value" id="value-country"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="country">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="country">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="country">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>Country</label>
+        <input type="text" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="country">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="country">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LinkedIn URL -->
+    <div class="field-row" id="field-linkedIn">
+      <div class="field-display">
+        <span class="field-label">LinkedIn URL</span>
+        <span class="field-value" id="value-linkedIn"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="linkedIn">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="linkedIn">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="linkedIn">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>LinkedIn URL</label>
+        <input type="url" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="linkedIn">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="linkedIn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GitHub URL -->
+    <div class="field-row" id="field-gitHub">
+      <div class="field-display">
+        <span class="field-label">GitHub URL</span>
+        <span class="field-value" id="value-gitHub"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="gitHub">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="gitHub">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="gitHub">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>GitHub URL</label>
+        <input type="url" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="gitHub">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="gitHub">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gender -->
+    <div class="field-row" id="field-gender">
+      <div class="field-display">
+        <span class="field-label">Gender</span>
+        <span class="field-value" id="value-gender"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="gender">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="gender">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="gender">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>Gender</label>
+        <input type="text" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="gender">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="gender">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="field-row" id="field-dateOfBirth">
+      <div class="field-display">
+        <span class="field-label">Date of Birth</span>
+        <span class="field-value" id="value-dateOfBirth"></span>
+        <div class="field-actions">
+          <button class="btn btn-sm btn-copy" data-field="dateOfBirth">Copy</button>
+          <button class="btn btn-sm btn-edit" data-field="dateOfBirth">Edit</button>
+          <button class="btn btn-sm btn-delete" data-field="dateOfBirth">Delete</button>
+        </div>
+      </div>
+      <div class="field-edit hidden">
+        <label>Date of Birth</label>
+        <input type="date" class="edit-input" />
+        <div class="edit-actions">
+          <button class="btn btn-sm btn-save-edit" data-field="dateOfBirth">Save</button>
+          <button class="btn btn-sm btn-cancel" data-field="dateOfBirth">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load fields config then popup logic -->
+  <script src="fields.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
